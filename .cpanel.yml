@@ -1,0 +1,14 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/nohfilco/epicerie-le-continent.designatrix.com
+
+    # Copy all files from repo to deployment folder
+    - /bin/cp -R * $DEPLOYPATH
+
+    # Composer install
+    - /opt/cpanel/composer/bin/composer install --no-dev -d $DEPLOYPATH
+
+    # Laravel commands
+    - php $DEPLOYPATH/artisan migrate --force
+    - php $DEPLOYPATH/artisan optimize
