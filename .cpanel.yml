@@ -1,19 +1,17 @@
 ---
 deployment:
   tasks:
-    # Set deployment path (your Laravel root)
     - export DEPLOYPATH=/home/nohfilco/epicerie-le-continent.designatrix.com
 
-    # Pull the latest files (cPanel does this automatically but this ensures sync)
-    - /bin/git pull
+    # Update repository
+    - /usr/local/cpanel/3rdparty/bin/git pull
 
-    # Install Composer dependencies
+    # Install dependencies
     - /opt/cpanel/composer/bin/composer install --no-dev --prefer-dist -d $DEPLOYPATH
 
-    # Laravel permissions (important on shared hosting)
+    # Set correct permissions
     - /bin/chmod -R 755 $DEPLOYPATH/storage
     - /bin/chmod -R 755 $DEPLOYPATH/bootstrap/cache
 
-    # Laravel optimization
-    - php $DEPLOYPATH/artisan migrate --force || true
-    - php $DEPLOYPATH/artisan optimize
+    # Run Laravel optimizations
+    - /usr/local/bin/php $DEPLOYPATH/artisan optimize
