@@ -101,42 +101,11 @@ document.addEventListener("DOMContentLoaded", function () {
     
     console.log("Found menus:", menus.length);
     
-    // Function to update icon - more robust approach
+    // Legacy icon toggle removed — no-op to avoid manipulating FontAwesome <i> element
     function updateIcon(isOpen) {
-        const icon = menuBtn.querySelector("i");
-        if (!icon) {
-            console.error("Icon element not found!");
-            return;
-        }
-        
-        // Completely replace the class attribute
-        if (isOpen) {
-            // Change to X (close) icon
-            icon.removeAttribute("class");
-            icon.className = "fas fa-times";
-            menuBtn.setAttribute("aria-label", "Close menu");
-            console.log("✓ Changed icon to X (close)", icon.className, icon);
-        } else {
-            // Change to hamburger (menu) icon
-            icon.removeAttribute("class");
-            icon.className = "fas fa-bars";
-            menuBtn.setAttribute("aria-label", "Open menu");
-            console.log("✓ Changed icon to hamburger", icon.className, icon);
-        }
-        
-        // Force a reflow to ensure the change is visible
-        void icon.offsetHeight;
-        
-        // Double check the icon changed
-        setTimeout(() => {
-            const currentClasses = icon.className;
-            const expectedClass = isOpen ? "fa-times" : "fa-bars";
-            if (!currentClasses.includes(expectedClass)) {
-                console.error("Icon change failed! Current:", currentClasses, "Expected:", expectedClass);
-                // Force it again
-                icon.className = isOpen ? "fas fa-times" : "fas fa-bars";
-            }
-        }, 10);
+        // Intentionally empty: the mobile hamburger is now a styled <span> structure
+        // and is controlled via CSS/JS directly in the header. Leaving this stub
+        // preserves existing calls without trying to change DOM classes.
     }
     
     // Toggle menu on button click

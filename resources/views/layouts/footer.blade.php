@@ -18,7 +18,7 @@
         <!-- Center Info -->
         <div class="footer-column footer-center">
             <!-- <h2 class="footer-logo">Christelle<span>🥗</span>Store</h2> -->
-             <img src="{{asset('assets/images/christelle-logo.png')}}" alt="Tasty Daily">
+             <img class="footer-logo" src="{{asset('assets/images/christelle-logo.png')}}" alt="Tasty Daily">
             <p>
                 We’re Tasty Daily Shop, an innovative team of food engineers.
                 Our unique model minimizes fresh food handling by up to 85%,
