@@ -642,6 +642,7 @@ body.VIpgJd-ZVi9od-ORHb {
    .hero-title {
      font-size: 42px;
      margin-bottom: 30px;
+     color: white;
    }
 
    .hero-actions {
@@ -677,6 +678,7 @@ body.VIpgJd-ZVi9od-ORHb {
      font-size: 36px;
      padding-top: 40px;
      line-height: 1.2;
+     color: white;
    }
 
    .btn-explore {
@@ -685,7 +687,8 @@ body.VIpgJd-ZVi9od-ORHb {
    }
 
    .hero-text {
-     font-size: 14px;
+     font-size: 16px;
+     color: white;
    }
  }
 
