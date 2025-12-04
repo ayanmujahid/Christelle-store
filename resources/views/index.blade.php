@@ -13,7 +13,7 @@
           <i class="fa-solid fa-bag-shopping"></i>
           Explore Shop
         </a>
-        <div class="hero-text">2500+ Fresh Products 2</div>
+        <div class="hero-text">2500+ Fresh Products</div>
       </div>
     </div>
     <!-- <div class="hero-image">
