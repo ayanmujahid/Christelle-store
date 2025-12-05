@@ -53,19 +53,45 @@
                     <span></span>
                 </span>
             </button>
-            {{-- {{ __('messages.welcome') }} --}}
 
+            <!-- Left Navigation (desktop) -->
+            <nav aria-label="Primary" class="left-nav">
+                <ul class="nav-menu">
+                    <li class="nav-item"><a class="nav-link" href="{{ route('shop') }}"><i class="nav-icon fas fa-shopping-bag" aria-hidden="true"></i><span>Grocery</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('shop') }}"><i class="nav-icon fas fa-utensils" aria-hidden="true"></i><span>Restaurant</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('shop') }}"><i class="nav-icon fas fa-leaf" aria-hidden="true"></i><span>Beauty Products</span></a></li>
+                </ul>
+            </nav>
 
-
-
+            <!-- Center Logo -->
             <div class="logo">
                 <a href="{{ route('index') }}" style="text-decoration:none;">
-                    <img src="{{asset('assets/images/christelle-logo.png')}}" alt="Tasty Daily">
-                    <!-- <h2 class="footer-logo" style="color: black; text-decoration:none;">Christelle<span>🥗</span>Store -->
-                    </h2>
+                    <img src="{{asset('assets/images/christelle-logo.png')}}" alt="Christelle Store">
                 </a>
             </div>
 
+            <!-- Right side: categories + action icons -->
+            <div class="header-actions">
+                <nav aria-label="Secondary">
+                    <ul class="nav-menu">
+                        <li class="nav-item"><a class="nav-link" href="{{ route('shop') }}"><i class="nav-icon fas fa-tshirt" aria-hidden="true"></i><span>Clothing</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('shop') }}"><i class="nav-icon fas fa-paint-roller" aria-hidden="true"></i><span>Decor</span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('shop') }}"><i class="nav-icon fas fa-running" aria-hidden="true"></i><span>Sportwears</span></a></li>
+                    </ul>
+                </nav>
+
+                <div class="action-icons">
+                    <a href="{{ Route::has('search') ? route('search') : '#' }}" class="icon-btn" aria-label="Search"><i class="fas fa-search"></i></a>
+                    @if (Auth::check())
+                        <a href="{{ Route::has('profile') ? route('profile') : '#' }}" class="icon-btn" aria-label="Account"><i class="fas fa-user"></i></a>
+                        <a href="{{ route('logout') }}" class="icon-btn" aria-label="Logout"><i class="fas fa-sign-out-alt"></i></a>
+                    @else
+                        <a href="{{ route('login') }}" class="icon-btn" aria-label="Account"><i class="fas fa-user"></i></a>
+                    @endif
+                    <a href="{{ route('wishlist') }}" class="icon-btn" aria-label="Wishlist"><i class="far fa-heart"></i></a>
+                    <a href="{{ route('cart') }}" class="icon-btn" aria-label="Cart"><i class="fas fa-shopping-cart"></i></a>
+                </div>
+            </div>
 
         </div>
     </header>
