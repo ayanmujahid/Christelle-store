@@ -1,10 +1,7 @@
 <?php
 
 use Illuminate\Support\Str;
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of b60bc58 (change:responsive:1)
+use Pdo\Mysql;
 
 return [
 
