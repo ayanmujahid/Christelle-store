@@ -33,6 +33,20 @@
         gap: 15px;
     }
 
+    .language-toggle {
+        padding: 6px 10px;
+        font-size: 12px;
+        gap: 6px;
+    }
+
+    .language-icon {
+        font-size: 14px;
+    }
+
+    .language-dropdown {
+        min-width: 140px;
+    }
+
     .phone-link {
         font-size: 16px;
     }
@@ -354,3 +368,42 @@
         font-size: 1.5rem;
     }
 }
+
+/* Desktop Responsive - Large Screens */
+@media (min-width: 1920px) {
+    .top-bar-content {
+        padding: 0 60px;
+        gap: 40px;
+    }
+    
+    .top-menu {
+        gap: 20px;
+        font-size: 14px;
+    }
+    
+    .phone-link {
+        font-size: 18px;
+    }
+}
+
+/* Desktop Responsive - Extra Large Screens (4K) */
+@media (min-width: 2560px) {
+    .top-bar-content {
+        padding: 0 80px;
+        gap: 50px;
+    }
+    
+    .top-menu {
+        gap: 25px;
+        font-size: 16px;
+    }
+    
+    .phone-link {
+        font-size: 20px;
+    }
+    
+    .social-links a {
+        font-size: 18px;
+    }
+}
+

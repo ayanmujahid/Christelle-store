@@ -149,16 +149,24 @@
     </div>
   </div>
 </section>
-<section class="delivery-section">
-  <div class="delivery-banner">
-    <div class="delivery-image">
-      <img src="{{asset('assets/images/delivery.webp')}}" alt="Delivery Person" class="delivery-img">
+<section class="video-cont">
+  <div class="video-container">
+    <div class="video-wrapper">
+      <div class="video-thumbnail">
+        <img src="{{asset('assets/images/banner-image.jpg')}}" alt="Video Thumbnail" class="thumbnail-image">
+        <div class="play-button-overlay">
+          <button class="play-button" onclick="playVideo()">
+            <svg viewBox="0 0 24 24" width="80" height="80">
+              <path d="M8 5v14l11-7z" fill="white"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <video id="mainVideo" src="{{asset('assets/images/v1.mp4')}}" controls class="video-element" style="display: none;"></video>
     </div>
-
-    <div class="delivery-content">
-      <h1>We Delivery on Next Day from 10:00 AM to 08:00 PM</h1>
-      <p>* For Orders starts from $100</p>
-      <button class="cta-button">Read More</button>
+    <div class="video-info">
+      <h3>Discover Fresh Produce Delivered</h3>
+      <p>Watch how we source and deliver the freshest fruits and vegetables directly to your doorstep with quality assurance at every step.</p>
     </div>
   </div>
 </section>
@@ -536,13 +544,210 @@
 @endsection
 @section('css')
     <style type="text/css">
-        /*in page css here*/
+        /* Video Section Styling */
+        .video-cont {
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+            padding: 80px 20px;
+            margin: 60px 0;
+        }
+
+        .video-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
+        }
+
+        .video-thumbnail {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .thumbnail-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .video-thumbnail:hover .thumbnail-image {
+            transform: scale(1.05);
+        }
+
+        .play-button-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+            cursor: pointer;
+        }
+
+        .video-thumbnail:hover .play-button-overlay {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .play-button {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8fbc4e 0%, #7aa844 100%);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 12px 40px rgba(143, 188, 78, 0.5);
+        }
+
+        .play-button:hover {
+            transform: scale(1.15);
+            box-shadow: 0 15px 50px rgba(143, 188, 78, 0.7);
+        }
+
+        .play-button svg {
+            margin-left: 5px;
+            filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .video-element {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+        }
+
+        .video-info {
+            text-align: center;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .video-info h3 {
+            font-size: 32px;
+            font-weight: 600;
+            color: #2c2c2c;
+            margin: 0 0 18px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .video-info p {
+            font-size: 17px;
+            color: #666;
+            line-height: 1.7;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .video-cont {
+                padding: 40px 15px;
+                margin: 30px 0;
+            }
+
+            .video-wrapper {
+                border-radius: 12px;
+                margin-bottom: 20px;
+            }
+
+            .play-button {
+                width: 70px;
+                height: 70px;
+            }
+
+            .play-button svg {
+                width: 50px;
+                height: 50px;
+            }
+
+            .video-info h3 {
+                font-size: 22px;
+                margin-bottom: 12px;
+            }
+
+            .video-info p {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .video-cont {
+                padding: 30px 10px;
+            }
+
+            .play-button {
+                width: 60px;
+                height: 60px;
+            }
+
+            .video-info h3 {
+                font-size: 18px;
+            }
+
+            .video-info p {
+                font-size: 13px;
+            }
+        }
     </style>
 @endsection
 @section('js')
     <script type="text/javascript">
         (() => {
-            /*in page js here*/
+            function playVideo() {
+                const thumbnail = document.querySelector('.video-thumbnail');
+                const videoElement = document.getElementById('mainVideo');
+                
+                thumbnail.style.display = 'none';
+                videoElement.style.display = 'block';
+                videoElement.play();
+            }
+
+            window.playVideo = playVideo;
+
+            // Reset video to thumbnail when it ends
+            const videoElement = document.getElementById('mainVideo');
+            if (videoElement) {
+                videoElement.addEventListener('ended', function() {
+                    document.querySelector('.video-thumbnail').style.display = 'flex';
+                    videoElement.style.display = 'none';
+                });
+            }
         })()
     </script>
 @endsection

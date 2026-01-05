@@ -38,6 +38,25 @@
                     <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                     <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
                 </div>
+                <div class="language-selector">
+                    <button class="language-toggle" id="languageToggle" aria-label="Select language" aria-haspopup="true" aria-expanded="false">
+                        <span class="language-icon"><i class="fas fa-globe"></i></span>
+                        <span class="language-label" id="currentLanguage">EN</span>
+                        <i class="fas fa-chevron-down language-chevron"></i>
+                    </button>
+                    <div class="language-dropdown" id="languageDropdown" role="menu" aria-hidden="true">
+                        <button class="language-option" data-lang="en" role="menuitem">
+                            <span class="option-flag">🇺🇸</span>
+                            <span class="option-text">English</span>
+                            <i class="fas fa-check check-icon"></i>
+                        </button>
+                        <button class="language-option" data-lang="fr" role="menuitem">
+                            <span class="option-flag">🇫🇷</span>
+                            <span class="option-text">Français</span>
+                            <i class="fas fa-check check-icon"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -174,3 +193,116 @@
             }
         })();
     </script>
+
+    <!-- Google Translate Script -->
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    
+    <!-- Language Selector Script -->
+    <script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+        }
+
+        function changeLanguage(lang) {
+            // Try multiple methods to trigger the translation
+            const element = document.querySelector('.goog-te-combo');
+            
+            if (element) {
+                // Method 1: Direct value change
+                element.value = lang;
+                
+                // Method 2: Dispatch change event
+                element.dispatchEvent(new Event('change', { bubbles: true }));
+                
+                // Method 3: Trigger click on the option
+                setTimeout(() => {
+                    const option = element.querySelector(`option[value="${lang}"]`);
+                    if (option) {
+                        option.selected = true;
+                        element.dispatchEvent(new Event('change', { bubbles: true }));
+                    }
+                }, 100);
+            }
+        }
+
+        // Wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggle = document.getElementById('languageToggle');
+            const dropdown = document.getElementById('languageDropdown');
+            const currentLanguageSpan = document.getElementById('currentLanguage');
+            const options = document.querySelectorAll('.language-option');
+            const savedLang = localStorage.getItem('selected_language') || 'en';
+
+            // Set initial active option in UI
+            function setActiveLanguage(lang) {
+                options.forEach(option => {
+                    if(option.dataset.lang === lang) {
+                        option.classList.add('active');
+                    } else {
+                        option.classList.remove('active');
+                    }
+                });
+                currentLanguageSpan.textContent = lang.toUpperCase();
+            }
+
+            // Initialize UI with saved language
+            setActiveLanguage(savedLang);
+            
+            // Apply saved language translation after page loads
+            if (savedLang === 'fr') {
+                setTimeout(() => changeLanguage('fr'), 3000);
+            }
+
+            // Toggle dropdown
+            if (toggle) {
+                toggle.addEventListener('click', function(e){
+                    e.stopPropagation();
+                    const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                    this.setAttribute('aria-expanded', String(!isExpanded));
+                    dropdown.setAttribute('aria-hidden', String(isExpanded));
+                });
+            }
+
+            // Handle language selection
+            options.forEach(option => {
+                option.addEventListener('click', function(e){
+                    e.preventDefault();
+                    const lang = this.dataset.lang;
+                    
+                    // Update UI
+                    setActiveLanguage(lang);
+                    
+                    // Close dropdown
+                    toggle.setAttribute('aria-expanded', 'false');
+                    dropdown.setAttribute('aria-hidden', 'true');
+                    
+                    // Store preference
+                    localStorage.setItem('selected_language', lang);
+                    
+                    // Change language with immediate retry
+                    changeLanguage(lang);
+                    setTimeout(() => changeLanguage(lang), 200);
+                    setTimeout(() => changeLanguage(lang), 500);
+                });
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e){
+                if(!e.target.closest('.language-selector')) {
+                    toggle.setAttribute('aria-expanded', 'false');
+                    dropdown.setAttribute('aria-hidden', 'true');
+                }
+            });
+
+            // Close dropdown on Escape key
+            document.addEventListener('keydown', function(e){
+                if(e.key === 'Escape') {
+                    toggle.setAttribute('aria-expanded', 'false');
+                    dropdown.setAttribute('aria-hidden', 'true');
+                }
+            });
+        });
+    </script>
+    
+    <!-- Hidden Google Translate Container -->
+    <div id="google_translate_element" style="display:none;"></div>

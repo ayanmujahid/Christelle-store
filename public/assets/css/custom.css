@@ -78,16 +78,31 @@ body.VIpgJd-ZVi9od-ORHb {
    background-color: var(--primary-green);
    color: var(--white);
    padding: 12px 0;
+   margin-top: -40px;
  }
 
  .top-bar-content {
-   max-width: 1160px;
+   width: 90%;
+   max-width: 100%;
    margin: 0 auto;
    display: grid;
    grid-template-columns: 1fr auto 1fr;
    align-items: center;
    gap: 30px;
-   padding: 0 50px;
+   padding: 0 clamp(20px, 3vw, 50px);
+   box-sizing: border-box;
+ }
+ 
+ @media (min-width: 1920px) {
+   .top-bar-content {
+     padding: 0 60px;
+   }
+ }
+ 
+ @media (min-width: 2560px) {
+   .top-bar-content {
+     padding: 0 80px;
+   }
  }
 
  .top-bar-left {
@@ -154,6 +169,157 @@ body.VIpgJd-ZVi9od-ORHb {
 
  .social-links a:hover {
    color: var(--white);
+ }
+
+ /* Language Selector */
+ .language-selector {
+   position: relative;
+   display: flex;
+   align-items: center;
+ }
+
+ .language-toggle {
+   display: flex;
+   align-items: center;
+   gap: 8px;
+   padding: 8px 12px;
+   background: linear-gradient(135deg, rgba(0, 215, 131, 0.1), rgba(36, 63, 47, 0.05));
+   border: 1px solid var(--accent-green);
+   border-radius: 6px;
+   color: var(--accent-green);
+   font-size: 13px;
+   font-weight: 600;
+   cursor: pointer;
+   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+   outline: none;
+ }
+
+ .language-toggle:hover {
+   background: linear-gradient(135deg, rgba(0, 215, 131, 0.15), rgba(36, 63, 47, 0.1));
+   border-color: var(--dark-accent);
+   box-shadow: 0 4px 12px rgba(0, 215, 131, 0.2);
+   transform: translateY(-2px);
+ }
+
+ .language-toggle:active {
+   transform: translateY(0);
+ }
+
+ .language-toggle[aria-expanded="true"] {
+   background: linear-gradient(135deg, rgba(0, 215, 131, 0.2), rgba(36, 63, 47, 0.15));
+   border-color: var(--dark-accent);
+   box-shadow: 0 6px 16px rgba(0, 215, 131, 0.25);
+ }
+
+ .language-icon {
+   display: inline-flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 16px;
+   animation: rotateIn 0.4s ease-out;
+ }
+
+ .language-label {
+   display: inline-block;
+   min-width: 25px;
+   text-align: center;
+ }
+
+ .language-chevron {
+   font-size: 11px;
+   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+ }
+
+ .language-toggle[aria-expanded="true"] .language-chevron {
+   transform: rotate(180deg);
+ }
+
+ .language-dropdown {
+   position: absolute;
+   top: 100%;
+   right: 0;
+   margin-top: 8px;
+   background: var(--white);
+   border: 1px solid rgba(0, 215, 131, 0.3);
+   border-radius: 8px;
+   box-shadow: 0 10px 30px rgba(36, 63, 47, 0.15);
+   min-width: 160px;
+   z-index: 1001;
+   opacity: 0;
+   visibility: hidden;
+   transform: translateY(-10px) scale(0.95);
+   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+   overflow: hidden;
+ }
+
+ .language-dropdown[aria-hidden="false"] {
+   opacity: 1;
+   visibility: visible;
+   transform: translateY(0) scale(1);
+ }
+
+ .language-option {
+   display: flex;
+   align-items: center;
+   width: 100%;
+   padding: 12px 16px;
+   gap: 10px;
+   background: none;
+   border: none;
+   color: var(--text-color);
+   font-size: 14px;
+   cursor: pointer;
+   transition: all 0.2s ease;
+   position: relative;
+   text-align: left;
+ }
+
+ .language-option:hover {
+   background-color: rgba(0, 215, 131, 0.08);
+ }
+
+ .language-option:active {
+   background-color: rgba(0, 215, 131, 0.12);
+ }
+
+ .language-option.active {
+   background: linear-gradient(90deg, rgba(0, 215, 131, 0.1), transparent);
+   color: var(--accent-green);
+   font-weight: 600;
+ }
+
+ .option-flag {
+   display: inline-block;
+   font-size: 18px;
+   width: 24px;
+ }
+
+ .option-text {
+   flex: 1;
+ }
+
+ .check-icon {
+   font-size: 12px;
+   color: var(--accent-green);
+   opacity: 0;
+   transform: scale(0);
+   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+ }
+
+ .language-option.active .check-icon {
+   opacity: 1;
+   transform: scale(1);
+ }
+
+ @keyframes rotateIn {
+   from {
+     opacity: 0;
+     transform: rotate(-45deg);
+   }
+   to {
+     opacity: 1;
+     transform: rotate(0deg);
+   }
  }
 
  /* Main Header */
@@ -2622,5 +2788,14 @@ background: linear-gradient(135deg, #243f2f 0%, #00d783 100%);
 }
 
 /* ---------- End Mobile Menu Enhancements ---------- */
+
+.video-cont{
+  width: 100%;
+  height: auto;
+  background:blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 =======
 >>>>>>> parent of b60bc58 (change:responsive:1)
