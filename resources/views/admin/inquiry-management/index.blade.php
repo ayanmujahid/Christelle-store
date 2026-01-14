@@ -85,14 +85,14 @@
 
                                                         <!-- View -->
                                                         <li>
-                                                            <a class="dropdown-item" href="{{ route('inquiries.show', $inquiry->id) }}">
+                                                            <a class="dropdown-item" href="{{ route('admin.inquiries.index', $inquiry->id) }}">
                                                                 <i class="ti ti-eye me-1"></i>View
                                                             </a>
                                                         </li>
 
                                                         <!-- Edit -->
                                                         <li>
-                                                            <a class="dropdown-item" href="{{ route('inquiries.edit', $inquiry->id) }}">
+                                                            <a class="dropdown-item" href="{{ route('admin.inquiries.edit', $inquiry->id) }}">
                                                                 <i class="ti ti-edit me-1"></i>Edit
                                                             </a>
                                                         </li>

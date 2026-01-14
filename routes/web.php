@@ -82,6 +82,6 @@ Route::prefix('admin')
         Route::resource('inquiries', InquiryController::class);
         Route::resource('products', ProductController::class);
         Route::resource('newsletters', NewsletterController::class);
-        Route::resource('product-categories', ProductCategoryController::class);
+        Route::resource('product-categories', ProductCategoryController::class)->parameters(['product-categories' => 'category']);
         Route::resource('product-subcategories', ProductSubCategoryController::class);
     });

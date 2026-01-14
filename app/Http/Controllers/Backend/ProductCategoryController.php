@@ -36,7 +36,7 @@ class ProductCategoryController extends Controller
 
     public function edit(ProductCategory $category)
     {
-        return view('categories.edit', compact('category'));
+        return view('admin.product-category-management.edit', compact('category'));
     }
 
     public function update(Request $request, ProductCategory $category)
@@ -50,7 +50,7 @@ class ProductCategoryController extends Controller
             'featured' => $request->featured ? true : false,
         ]);
 
-        return redirect()->route('categories.index')->with('success', 'Category updated successfully!');
+        return redirect()->route('admin.product-categories.index')->with('success', 'Category updated successfully!');
     }
 
    public function destroy(ProductCategory $category)

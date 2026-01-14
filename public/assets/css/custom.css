@@ -74,12 +74,12 @@ body.VIpgJd-ZVi9od-ORHb {
  }
 
  /* Top Bar */
- .top-bar {
-   background-color: var(--primary-green);
-   color: var(--white);
-   padding: 12px 0;
-   margin-top: -40px;
- }
+.top-bar {
+    background-color: var(--primary-green);
+    color: var(--white);
+    padding: 12px 0;
+    margin-top: 0px;
+}
 
  .top-bar-content {
    width: 90%;

@@ -11,7 +11,7 @@
                 <h1 class="page-title fw-medium fs-18 mb-0">Edit Product Category</h1>
                 <ol class="breadcrumb mb-0">
                     <li class="breadcrumb-item"><a href="javascript:void(0);">Products</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('categories.index') }}">Categories</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('admin.product-categories.index') }}">Categories</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Edit Category</li>
                 </ol>
             </div>
@@ -29,7 +29,7 @@
                         </div>
                     </div>
 
-                    <form action="{{ route('categories.update', $category->id) }}" method="POST">
+                    <form action="{{ route('admin.product-categories.update', $category->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         
