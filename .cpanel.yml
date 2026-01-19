@@ -7,9 +7,14 @@ deployment:
     # Ensure we are in the correct repo directory
     - cd $DEPLOYPATH
 
-    # Pull the latest changes from main
-    - /usr/local/cpanel/3rdparty/bin/git fetch --all
-    - /usr/local/cpanel/3rdparty/bin/git reset --hard origin/main
+    # Fetch the latest changes
+    - /usr/local/cpanel/3rdparty/bin/git fetch origin
+
+    # Reset to match remote main branch
+    - /usr/local/cpanel/3rdparty/bin/git reset --hard origin/main || true
+
+    # Pull the latest changes safely
+    - /usr/local/cpanel/3rdparty/bin/git pull origin main
 
     # Install composer dependencies
     - /opt/cpanel/composer/bin/composer install --no-dev --prefer-dist -d $DEPLOYPATH
