@@ -1,240 +1,212 @@
-      @extends('admin.layouts.main')
-      @section('content')
-      @include('admin.layouts.sidebar')
+@extends('admin.layouts.main')
 
-      <!-- Start::app-content -->
-      <div class="main-content app-content">
-          <div class="container-fluid page-container main-body-container">
+@section('content')
+@include('admin.layouts.sidebar')
 
-              <!-- Start::page-header -->
-              <div class="page-header-breadcrumb mb-3">
-                  <div class="d-flex align-center justify-content-between flex-wrap">
-                      <h1 class="page-title fw-medium fs-18 mb-0">Add Product</h1>
-                      <ol class="breadcrumb mb-0">
-                          <li class="breadcrumb-item">
-                              <a href="javascript:void(0);">
-                                  Dashboards
-                              </a>
-                          </li>
-                          <li class="breadcrumb-item">
-                              <a href="javascript:void(0);">
-                                  Ecommerce
-                              </a>
-                          </li>
-                          <li class="breadcrumb-item active" aria-current="page">Add Product</li>
-                      </ol>
-                  </div>
-              </div>
-              <!-- End::page-header -->
+<div class="main-content app-content">
+    <div class="container-fluid">
 
-              <!-- Start:: row-1 -->
-              <div class="row">
-                  <div class="col-xl-3">
-                      <div class="row">
-                          <div class="col-xl-12">
-                              <div class="card custom-card">
-                                  <div class="card-header">
-                                      <div class="card-title">
-                                          Product Images
-                                      </div>
-                                  </div>
-                                  <div class="card-body">
-                                      <input type="file" class="product-Images" name="filepond" multiple data-allow-reorder="true" data-max-file-size="3MB" data-max-files="6">
-                                      <label class="form-label text-muted mt-1 fs-13 mb-0 fw-normal">Upload 6 images, ensuring uniform size (max 2MB). Changes can be made after 24 hours. </label>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="col-xl-12">
-                              <div class="card custom-card">
-                                  <div class="card-header">
-                                      <div class="card-title">
-                                          Product Details
-                                      </div>
-                                  </div>
-                                  <div class="card-body">
-                                      <div class="row gy-2">
-                                          <div class="col-xl-12">
-                                              <label for="publish-date" class="form-label">Publish Date</label>
-                                              <input type="text" class="form-control" id="publish-date" placeholder="Choose date">
-                                          </div>
-                                          <div class="col-xl-12">
-                                              <label for="publish-time" class="form-label">Publish Time</label>
-                                              <input type="text" class="form-control" id="publish-time" placeholder="Choose time">
-                                          </div>
-                                          <div class="col-xl-12">
-                                              <label for="product-status-add" class="form-label">Published Status</label>
-                                              <select class="form-control" data-trigger name="product-status-add" id="product-status-add">
-                                                  <option value="">Select</option>
-                                                  <option value="Published">Published</option>
-                                                  <option value="Scheduled">Scheduled</option>
-                                              </select>
-                                          </div>
-                                          <div class="col-xl-12">
-                                              <label for="product-tags" class="form-label">Product Tags</label>
-                                              <input class="form-control" id="choices-text-preset-values" type="text" value="" placeholder="This is a placeholder">
-                                          </div>
-                                          <div class="col-xl-12">
-                                              <label for="product-status-add1" class="form-label">Availability</label>
-                                              <select class="form-control" data-trigger name="product-status-add1" id="product-status-add1">
-                                                  <option value="">Select</option>
-                                                  <option value="In Stock">In Stock</option>
-                                                  <option value="Out Of Stock">Out Of Stock</option>
-                                              </select>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="col-xl-12">
-                              <div class="card custom-card">
-                                  <div class="card-header">
-                                      <div class="card-title">
-                                          Warrenty Documents
-                                      </div>
-                                  </div>
-                                  <div class="card-body">
-                                      <input type="file" class="product-documents" name="filepond" multiple data-allow-reorder="true" data-max-file-size="3MB" data-max-files="6">
-                                      <label class="form-label text-muted mt-1 fs-13 fw-normal mb-0">Upload warranty document (PDF/DOC, max 5MB).</label>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="col-xl-9">
-                      <div class="card custom-card shadow-none mb-0 border-0">
-                          <div class="card-body p-0">
-                              <div class="row gy-3">
-                                  <div class="col-xl-12">
-                                      <label for="product-name-add" class="form-label">Product Name</label>
-                                      <input type="text" class="form-control" id="product-name-add" placeholder="Name">
-                                      <label for="product-name-add" class="form-label mt-1 fs-12 op-5 text-muted mb-0">*Product Name should not exceed 30 characters</label>
-                                  </div>
-                                  <div class="col-xl-6">
-                                      <label for="product-category-add" class="form-label">Category</label>
-                                      <select class="form-control" data-trigger name="product-category-add" id="product-category-add">
-                                          <option value="">Category</option>
-                                          <option value="Clothing">Clothing</option>
-                                          <option value="Footwear">Footwear</option>
-                                          <option value="Accesories">Accesories</option>
-                                          <option value="Grooming">Grooming</option>
-                                          <option value="Ethnic & Festive">Ethnic & Festive</option>
-                                          <option value="Jewellery">Jewellery</option>
-                                          <option value="Toys & Babycare">Toys & Babycare</option>
-                                          <option value="Festive Gifts">Festive Gifts</option>
-                                          <option value="Kitchen">Kitchen</option>
-                                          <option value="Dining">Dining</option>
-                                          <option value="Home Decors">Home Decors</option>
-                                          <option value="Stationery">Stationery</option>
-                                      </select>
-                                  </div>
-                                  <div class="col-xl-6">
-                                      <label for="product-gender-add" class="form-label">Gender</label>
-                                      <select class="form-control" data-trigger name="product-gender-add" id="product-gender-add">
-                                          <option value="">Select</option>
-                                          <option value="All">All</option>
-                                          <option value="Male">Male</option>
-                                          <option value="Female">Female</option>
-                                          <option value="Others">Others</option>
-                                      </select>
-                                  </div>
-                                  <div class="col-xl-6">
-                                      <label for="product-size-add" class="form-label">Size</label>
-                                      <select class="form-control" data-trigger name="product-size-add" id="product-size-add">
-                                          <option value="">Select</option>
-                                          <option value="Extra Small">Extra Small</option>
-                                          <option value="Small">Small</option>
-                                          <option value="Medium">Medium</option>
-                                          <option value="Large">Large</option>
-                                          <option value="Extra Large">Extra Large</option>
-                                      </select>
-                                  </div>
-                                  <div class="col-xl-6">
-                                      <label for="product-brand-add" class="form-label">Brand</label>
-                                      <select class="form-control" data-trigger name="product-brand-add" id="product-brand-add">
-                                          <option value="">Select</option>
-                                          <option value="Armani">Armani</option>
-                                          <option value="Lacoste">Lacoste</option>
-                                          <option value="Puma">Puma</option>
-                                          <option value="Spykar">Spykar</option>
-                                          <option value="Mufti">Mufti</option>
-                                          <option value="Home Town">Home Town</option>
-                                          <option value="Arrabi">Arrabi</option>
-                                      </select>
-                                  </div>
-                                  <div class="col-xl-6 color-selection">
-                                      <label for="product-color-add" class="form-label">Colors</label>
-                                      <select class="form-control" name="product-color-add" id="product-color-add" multiple>
-                                          <option value="White">White</option>
-                                          <option value="Black">Black</option>
-                                          <option value="Red">Red</option>
-                                          <option value="Orange">Orange</option>
-                                          <option value="Yellow">Yellow</option>
-                                          <option value="Green">Green</option>
-                                          <option value="Blue">Blue</option>
-                                          <option value="Pink">Pink</option>
-                                          <option value="Purple">Purple</option>
-                                      </select>
-                                  </div>
-                                  <div class="col-xl-6">
-                                      <label for="product-cost-add" class="form-label">Enter Cost</label>
-                                      <input type="text" class="form-control" id="product-cost-add" placeholder="Cost">
-                                      <label for="product-cost-add" class="form-label mt-1 fs-12 op-5 text-muted mb-0">*Mention final price of the product</label>
-                                  </div>
-                                  <div class="col-xl-12">
-                                      <label for="product-description-add" class="form-label">Product Description</label>
-                                      <textarea class="form-control" id="product-description-add" rows="2"></textarea>
-                                      <label for="product-description-add" class="form-label mt-1 fs-12 op-5 text-muted mb-0">*Description should not exceed 500 letters</label>
-                                  </div>
-                                  <div class="col-xl-12">
-                                      <label class="form-label">Product Features</label>
-                                      <div id="product-features"></div>
-                                  </div>
-                                  <div class="col-xl-4">
-                                      <label for="product-actual-price" class="form-label">Actual Price</label>
-                                      <input type="text" class="form-control" id="product-actual-price" placeholder="Actual Price">
-                                  </div>
-                                  <div class="col-xl-4">
-                                      <label for="product-dealer-price" class="form-label">Dealer Price</label>
-                                      <input type="text" class="form-control" id="product-dealer-price" placeholder="Dealer Price">
-                                  </div>
-                                  <div class="col-xl-4">
-                                      <label for="product-discount" class="form-label">Discount</label>
-                                      <input type="text" class="form-control" id="product-discount" placeholder="Discount in %">
-                                  </div>
-                                  <div class="col-xl-6">
-                                      <label for="product-type" class="form-label">Product Type</label>
-                                      <input type="text" class="form-control" id="product-type" placeholder="Type">
-                                  </div>
-                                  <div class="col-xl-6">
-                                      <label for="product-discount" class="form-label">Item Weight</label>
-                                      <input type="text" class="form-control" id="product-discount1" placeholder="Weight in gms">
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="px-4 py-3 border-top border-block-start-dashed d-sm-flex justify-content-end mt-3">
-                      <button class="btn btn-primary-light m-1">Add Product<i class="bi bi-plus-lg ms-2"></i></button>
-                      <button class="btn btn-success-light m-1">Save Product<i class="bi bi-download ms-2"></i></button>
-                  </div>
-              </div>
-              <!-- End:: row-1 -->
+        <h1 class="mb-3">Add Product</h1>
 
-          </div>
-      </div>
-      <!-- End::app-content -->
+        <form action="{{ route('admin.products.store') }}"
+              method="POST"
+              enctype="multipart/form-data">
+            @csrf
 
-      @endsection
-      @section('css')
-      <style type="text/css">
-          /*in page css here*/
-      </style>
-      @endsection
-      @section('js')
-      <script type="text/javascript">
-          (() => {
+            <div class="row">
 
-              /*in page css here*/
-          })()
-      </script>
-      @endsection
+                {{-- LEFT --}}
+                <div class="col-md-3">
+
+                    {{-- MAIN IMAGE --}}
+                    <div class="card mb-3">
+                        <div class="card-header">Main Image</div>
+                        <div class="card-body">
+                            <input type="file"
+                                   name="main_image"
+                                   id="mainImageInput"
+                                   class="form-control"
+                                   accept="image/*">
+
+                            <div id="mainImagePreview" class="mt-3"></div>
+                        </div>
+                    </div>
+
+                    {{-- GALLERY --}}
+                    <div class="card">
+                        <div class="card-header">Gallery Images</div>
+                        <div class="card-body">
+                            <input type="file"
+                                   name="gallery[]"
+                                   id="galleryInput"
+                                   class="form-control"
+                                   multiple
+                                   accept="image/*">
+
+                            <div id="galleryPreview"
+                                 class="d-flex flex-wrap mt-3 gap-2"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+                {{-- RIGHT --}}
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <div class="mb-3">
+                                <label>Product Name</label>
+                                <input type="text" name="name" class="form-control" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Short Description</label>
+                                <textarea name="short_description"
+                                          class="form-control"
+                                          maxlength="500"></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label>Long Description</label>
+                                <textarea name="long_description"
+                                          class="form-control"
+                                          rows="4"></textarea>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label>Price</label>
+                                    <input type="number" name="price" class="form-control" step="0.01" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label>Stock</label>
+                                    <input type="number" name="stock" class="form-control" step="0.01">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label>Discounted Price</label>
+                                    <input type="number" name="discounted_price" class="form-control" step="0.01">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="text-end mt-3">
+                <button type="submit" class="btn btn-primary">
+                    Add Product
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+@endsection
+@section('css')
+<style>
+.preview-box {
+    position: relative;
+    width: 90px;
+    height: 90px;
+}
+
+.preview-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+.remove-btn {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: red;
+    color: #fff;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    text-align: center;
+    line-height: 22px;
+    cursor: pointer;
+    font-size: 14px;
+}
+</style>
+@endsection
+@section('js')
+<script>
+/* MAIN IMAGE PREVIEW */
+document.getElementById('mainImageInput').addEventListener('change', function () {
+    const preview = document.getElementById('mainImagePreview');
+    preview.innerHTML = '';
+
+    if (this.files[0]) {
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(this.files[0]);
+        img.style.width = '100px';
+        img.style.borderRadius = '6px';
+
+        const box = document.createElement('div');
+        box.classList.add('preview-box');
+
+        const remove = document.createElement('span');
+        remove.innerHTML = '&times;';
+        remove.classList.add('remove-btn');
+        remove.onclick = () => {
+            this.value = '';
+            preview.innerHTML = '';
+        };
+
+        box.appendChild(img);
+        box.appendChild(remove);
+        preview.appendChild(box);
+    }
+});
+
+/* GALLERY PREVIEW */
+let galleryFiles = [];
+
+document.getElementById('galleryInput').addEventListener('change', function () {
+    galleryFiles = Array.from(this.files);
+    renderGallery();
+});
+
+function renderGallery() {
+    const preview = document.getElementById('galleryPreview');
+    preview.innerHTML = '';
+
+    galleryFiles.forEach((file, index) => {
+        const box = document.createElement('div');
+        box.classList.add('preview-box');
+
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(file);
+
+        const remove = document.createElement('span');
+        remove.innerHTML = '&times;';
+        remove.classList.add('remove-btn');
+        remove.onclick = () => {
+            galleryFiles.splice(index, 1);
+            updateGalleryInput();
+            renderGallery();
+        };
+
+        box.appendChild(img);
+        box.appendChild(remove);
+        preview.appendChild(box);
+    });
+}
+
+function updateGalleryInput() {
+    const dataTransfer = new DataTransfer();
+    galleryFiles.forEach(file => dataTransfer.items.add(file));
+    document.getElementById('galleryInput').files = dataTransfer.files;
+}
+</script>
+@endsection

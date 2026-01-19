@@ -1,224 +1,175 @@
 @extends('admin.layouts.main')
+
 @section('content')
 @include('admin.layouts.sidebar')
 
 <div class="main-content app-content">
     <div class="container-fluid page-container main-body-container">
 
-        <!-- Start::page-header -->
+        {{-- PAGE HEADER --}}
         <div class="page-header-breadcrumb mb-3">
-            <div class="d-flex align-center justify-content-between flex-wrap">
-                <h1 class="page-title fw-medium fs-18 mb-0">Products</h1>
-                <ol class="breadcrumb mb-0">
-                    <li class="breadcrumb-item"><a href="javascript:void(0);">Dashboards</a></li>
-                    <li class="breadcrumb-item"><a href="javascript:void(0);">Ecommerce</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Products</li>
-                </ol>
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="page-title fs-18">Products</h1>
+                <a href="{{ route('admin.products.create') }}" class="btn btn-primary">
+                    + Add Product
+                </a>
             </div>
         </div>
-        <!-- End::page-header -->
 
-        <!-- Start::row-1 -->
-        <div class="row row-cols-xxl-5 row-cols-md-3 row-cols-1">
-            <div class="col">
-                <div class="card custom-card dashboard-main-card primary">
+        {{-- STATS --}}
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="card text-center">
                     <div class="card-body">
-                        <div class="d-flex align-items-start gap-3 flex-wrap">
-                            <div class="flex-fill">
-                                <span class="fs-13 fw-medium">Total Products</span>
-                                <h4 class="fw-semibold my-2 lh-1">12,350</h4>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <span class="d-block text-muted"><span class="fs-12 badge bg-success-transparent me-1">+15%</span>this month</span>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="avatar avatar-md bg-primary-transparent svg-primary">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-                                        <rect width="256" height="256" fill="none" />
-                                        <path d="M208,32H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM192,184H64a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16Zm0-48H64a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16Zm0-48H64a8,8,0,0,1,0-16H192a8,8,0,0,1,0,16Z" />
-                                    </svg>
-                                </span>
-                            </div>
-                        </div>
+                        <h6>Total Products</h6>
+                        <h3>{{ $stats['total'] }}</h3>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="card custom-card dashboard-main-card success">
+            <div class="col-md-3">
+                <div class="card text-center">
                     <div class="card-body">
-                        <div class="d-flex align-items-start gap-3 flex-wrap">
-                            <div class="flex-fill">
-                                <span class="fs-13 fw-medium">Products in Stock</span>
-                                <h4 class="fw-semibold my-2 lh-1">7,890</h4>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <span class="d-block text-muted"><span class="fs-12 badge bg-success-transparent me-1">+10%</span>this month</span>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="avatar avatar-md bg-success-transparent svg-success">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-                                        <rect width="256" height="256" fill="none" />
-                                        <path d="M223.68,66.15,135.68,18a15.88,15.88,0,0,0-15.36,0l-88,48.17a16,16,0,0,0-8.32,14v95.64a16,16,0,0,0,8.32,14l88,48.17a15.88,15.88,0,0,0,15.36,0l88-48.17a16,16,0,0,0,8.32-14V80.18A16,16,0,0,0,223.68,66.15ZM128,32l80.35,44L178.57,92.29l-80.35-44Zm0,88L47.65,76,81.56,57.43l80.35,44Zm88,55.85h0l-80,43.79V133.83l32-17.51V152a8,8,0,0,0,16,0V107.56l32-17.51v85.76Z" />
-                                    </svg>
-                                </span>
-                            </div>
-                        </div>
+                        <h6>In Stock</h6>
+                        <h3 class="text-success">{{ $stats['in_stock'] }}</h3>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="card custom-card dashboard-main-card warning">
+            <div class="col-md-3">
+                <div class="card text-center">
                     <div class="card-body">
-                        <div class="d-flex align-items-start gap-3 flex-wrap">
-                            <div class="flex-fill">
-                                <span class="fs-13 fw-medium">Out of Stock Products</span>
-                                <h4 class="fw-semibold my-2 lh-1">2,430</h4>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <span class="d-block text-muted"><span class="fs-12 badge bg-danger-transparent me-1">-8%</span>this month</span>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="avatar avatar-md bg-warning-transparent svg-warning">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-                                        <rect width="256" height="256" fill="none" />
-                                        <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm37.66,130.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66a8,8,0,0,1,11.32-11.32L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32L139.31,128Z" />
-                                    </svg>
-                                </span>
-                            </div>
-                        </div>
+                        <h6>Out of Stock</h6>
+                        <h3 class="text-danger">{{ $stats['out_stock'] }}</h3>
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="card custom-card dashboard-main-card secondary">
+            <div class="col-md-3">
+                <div class="card text-center">
                     <div class="card-body">
-                        <div class="d-flex align-items-start gap-3 flex-wrap">
-                            <div class="flex-fill">
-                                <span class="fs-13 fw-medium">Recently Added</span>
-                                <h4 class="fw-semibold my-2 lh-1">550</h4>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <span class="d-block text-muted"><span class="fs-12 badge bg-success-transparent me-1">+30%</span>this month</span>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="avatar avatar-md bg-secondary-transparent svg-secondary">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-                                        <rect width="256" height="256" fill="none" />
-                                        <path d="M128,24A104,104,0,1,0,232,128,104.13,104.13,0,0,0,128,24Zm40,112H136v32a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h32V88a8,8,0,0,1,16,0v32h32a8,8,0,0,1,0,16Z" />
-                                    </svg>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card custom-card dashboard-main-card info">
-                    <div class="card-body">
-                        <div class="d-flex align-items-start gap-3 flex-wrap">
-                            <div class="flex-fill">
-                                <span class="fs-13 fw-medium">Total Revenue</span>
-                                <h4 class="fw-semibold my-2 lh-1">$1,250,450</h4>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <span class="d-block text-muted"><span class="fs-12 badge bg-success-transparent me-1">+25%</span>this month</span>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="avatar avatar-md bg-info-transparent svg-info">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-                                        <rect width="256" height="256" fill="none" />
-                                        <path d="M168,128a40,40,0,1,1-40-40A40,40,0,0,1,168,128Zm80-64V192a8,8,0,0,1-8,8H16a8,8,0,0,1-8-8V64a8,8,0,0,1,8-8H240A8,8,0,0,1,248,64Zm-16,46.35A56.78,56.78,0,0,1,193.65,72H62.35A56.78,56.78,0,0,1,24,110.35v35.3A56.78,56.78,0,0,1,62.35,184h131.3A56.78,56.78,0,0,1,232,145.65Z" />
-                                    </svg>
-                                </span>
-                            </div>
-                        </div>
+                        <h6>Total Revenue</h6>
+                        <h3>${{ number_format($stats['revenue'], 2) }}</h3>
                     </div>
                 </div>
             </div>
         </div>
-        <!--End::row-1 -->
 
-        <!-- Start::row-2 -->
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card custom-card">
-                    <div class="card-header justify-content-between border-bottom-0">
-                        <!-- Search Bar -->
-                        <div class="w-sm-25">
-                            <input class="form-control" type="search" id="search-input" placeholder="Search Product" aria-label="search-product">
-                        </div>
-
-                        <!-- Filters Section -->
-                        <div class="row gy-2 w-sm-50">
-                            <!-- Category Filter -->
-                            <div class="col">
-                                <select class="form-control" data-trigger name="choices-single-default" id="category-filter">
-                                    <option value="">Categories</option>
-                                    <option value="all">All Categories</option>
-                                    <option value="electronics">Electronics</option>
-                                    <option value="fashion">Fashion</option>
-                                    <option value="home">Home</option>
-                                </select>
-                            </div>
-
-                            <!-- Status Filter -->
-                            <div class="col">
-                                <select class="form-control" data-trigger name="choices-single-default" id="status-filter">
-                                    <option value="">Status</option>
-                                    <option value="all">All Status</option>
-                                    <option value="published">Published</option>
-                                    <option value="draft">Draft</option>
-                                    <option value="archived">Archived</option>
-                                </select>
-                            </div>
-
-                            <!-- Stock Filter -->
-                            <div class="col">
-                                <select class="form-control" data-trigger name="choices-single-default" id="stock-filter">
-                                    <option value="">Stock</option>
-                                    <option value="all">All Status</option>
-                                    <option value="in-stock">In Stock</option>
-                                    <option value="out-of-stock">Out of Stock</option>
-                                </select>
-                            </div>
-
-                            <!-- Sort By Filter -->
-                            <div class="col">
-                                <select class="form-control" data-trigger name="choices-single-default" id="sort-filter">
-                                    <option value="">Sort&nbsp;By</option>
-                                    <option value="date">Date Added</option>
-                                    <option value="price">Price</option>
-                                    <option value="name">Product Name</option>
-                                </select>
-                            </div>
-                        </div>
+        {{-- FILTERS --}}
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="row g-2">
+                    <div class="col-md-4">
+                        <input type="text" id="search"
+                            value="{{ request('search') }}"
+                            class="form-control"
+                            placeholder="Search product">
                     </div>
-
-                    <!-- Table inside the card-body -->
-                    <div class="card-body p-0">
-                        <div id="product-table" class="grid-card-table"></div>
+                    <div class="col-md-3">
+                        <select id="stock" class="form-control">
+                            <option value="">All Stock</option>
+                            <option value="in-stock" {{ request('stock')=='in-stock'?'selected':'' }}>In Stock</option>
+                            <option value="out-of-stock" {{ request('stock')=='out-of-stock'?'selected':'' }}>Out of Stock</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select id="sort" class="form-control">
+                            <option value="">Sort By</option>
+                            <option value="date" {{ request('sort')=='date'?'selected':'' }}>Latest</option>
+                            <option value="price" {{ request('sort')=='price'?'selected':'' }}>Price</option>
+                            <option value="name" {{ request('sort')=='name'?'selected':'' }}>Name</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button onclick="applyFilters()" class="btn btn-dark w-100">
+                            Apply
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- End::row-2 -->
+
+        {{-- PRODUCT TABLE --}}
+        <div class="card">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Discount</th>
+                                <th>Stock</th>
+                                <th>Created</th>
+                                <th width="150">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($products as $product)
+                            <tr>
+                                <td>
+                                    <img src="{{ asset('storage/' . $product->mainImage->url) }}"
+                                        class="rounded"
+                                        width="50">
+                                </td>
+                                <td>{{ $product->name }}</td>
+                                <td>${{ $product->price }}</td>
+                                <td>
+                                    {{ $product->discounted_price ?? '-' }}
+                                </td>
+                                <td>
+                                    <span class="badge bg-{{ $product->stock > 0 ? 'success' : 'danger' }}">
+                                        {{ $product->stock > 0 ? 'In Stock' : 'Out of Stock' }}
+                                    </span>
+                                </td>
+                                <td>{{ $product->created_at->format('d M Y') }}</td>
+                                <td>
+                                    <a href="{{ route('admin.products.edit', $product->id) }}"
+                                        class="btn btn-sm btn-warning">
+                                        Edit
+                                    </a>
+
+                                    <form action="{{ route('admin.products.destroy', $product->id) }}"
+                                        method="POST"
+                                        class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-sm btn-danger"
+                                            onclick="return confirm('Delete product?')">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="7" class="text-center text-muted py-4">
+                                    No products found
+                                </td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        {{-- PAGINATION --}}
+        <div class="mt-3">
+            {{ $products->withQueryString()->links() }}
+        </div>
 
     </div>
 </div>
-<!-- End::app-content -->
-@endsection
-@section('css')
-<style type="text/css">
-    /*in page css here*/
-</style>
 @endsection
 @section('js')
-<script type="text/javascript">
-    (() => {
-
-        /*in page css here*/
-    })()
-</script>
 <script>
+function applyFilters() {
+    const params = new URLSearchParams({
+        search: document.getElementById('search').value,
+        stock: document.getElementById('stock').value,
+        sort: document.getElementById('sort').value
+    });
+
+    window.location.href = `?${params.toString()}`;
+}
 </script>
 @endsection

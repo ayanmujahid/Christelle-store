@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('short_description')->nullable();
             $table->text('long_description')->nullable();
             $table->decimal('price', 10, 2);
+            $table->decimal('stock', 10, 2)->nullable();
             $table->decimal('discounted_price', 10, 2)->nullable();
             $table->timestamps();
         });

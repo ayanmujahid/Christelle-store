@@ -17,10 +17,45 @@ class ProductController extends Controller
         $this->fileRepo = $fileRepo;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::latest()->paginate(10);
-        return view('admin.product-management.index', compact('products'));
+        $query = Product::query();
+
+        // 🔍 Search
+        if ($request->filled('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        // 📦 Stock filter
+        if ($request->stock === 'in-stock') {
+            $query->where('stock', '>', 0);
+        }
+
+        if ($request->stock === 'out-of-stock') {
+            $query->where('stock', 0);
+        }
+
+        // ↕ Sort
+        if ($request->sort === 'price') {
+            $query->orderBy('price');
+        } elseif ($request->sort === 'name') {
+            $query->orderBy('name');
+        } else {
+            $query->latest();
+        }
+
+        $products = $query->paginate(10);
+
+        // 📊 Stats
+        $stats = [
+            'total' => Product::count(),
+            'in_stock' => Product::where('stock', '>', 0)->count(),
+            'out_stock' => Product::where('stock', 0)->count(),
+            'revenue' => Product::sum('price'),
+            'recent' => Product::whereDate('created_at', '>=', now()->subMonth())->count(),
+        ];
+
+        return view('admin.product-management.index', compact('products', 'stats'));
     }
 
     public function create()
@@ -41,7 +76,11 @@ class ProductController extends Controller
         ]);
 
         $product = Product::create($request->only([
-            'name', 'short_description', 'long_description', 'price', 'discounted_price'
+            'name',
+            'short_description',
+            'long_description',
+            'price',
+            'discounted_price'
         ]));
 
         // Handle files
@@ -53,7 +92,7 @@ class ProductController extends Controller
             $this->fileRepo->uploadMultiple($request->file('gallery'), $product, 'gallery');
         }
 
-        return redirect()->route('products.index')->with('success', 'Product created successfully.');
+        return redirect()->route('admin.products.index')->with('success', 'Product created successfully.');
     }
 
     public function show(Product $product)
@@ -79,7 +118,11 @@ class ProductController extends Controller
         ]);
 
         $product->update($request->only([
-            'name', 'short_description', 'long_description', 'price', 'discounted_price'
+            'name',
+            'short_description',
+            'long_description',
+            'price',
+            'discounted_price'
         ]));
 
         // Update main image

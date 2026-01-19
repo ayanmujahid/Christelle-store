@@ -13,7 +13,8 @@ class Product extends Model
         'short_description',
         'long_description',
         'price',
-        'discounted_price'
+        'discounted_price',
+        'stock',
     ];
 
     // Relationship to files
