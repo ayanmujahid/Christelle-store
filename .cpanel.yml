@@ -1,12 +1,17 @@
 ---
 deployment:
   tasks:
+    # Set deploy path
     - export DEPLOYPATH=/home/nohfilco/epicerie-le-continent.designatrix.com
 
-    # Update repository
-    - /usr/local/cpanel/3rdparty/bin/git pull
+    # Ensure we are in the correct repo directory
+    - cd $DEPLOYPATH
 
-    # Install dependencies
+    # Pull the latest changes from main
+    - /usr/local/cpanel/3rdparty/bin/git fetch --all
+    - /usr/local/cpanel/3rdparty/bin/git reset --hard origin/main
+
+    # Install composer dependencies
     - /opt/cpanel/composer/bin/composer install --no-dev --prefer-dist -d $DEPLOYPATH
 
     # Set correct permissions
