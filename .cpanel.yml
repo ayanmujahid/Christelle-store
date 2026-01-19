@@ -2,7 +2,7 @@
 deployment:
   tasks:
     # Set deploy path
-    - export DEPLOYPATH=/home/nohfilco/epicerie-le-continent.designatrix.com
+    - export DEPLOYPATH=/home/nohfilco/christelle-store.designatrix.com
 
     # Ensure we are in the correct repo directory
     - cd $DEPLOYPATH
