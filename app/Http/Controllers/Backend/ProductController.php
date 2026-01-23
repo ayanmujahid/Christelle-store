@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductCategory;
+use App\Models\ProductSubCategory;
 use App\Repositories\FileRepository;
 use Illuminate\Http\Request;
+
 
 class ProductController extends Controller
 {
@@ -60,7 +63,15 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('admin.product-management.create');
+        $categories = ProductCategory::orderBy('name')->get();
+        return view('admin.product-management.create', compact('categories'));
+    }
+
+    public function subCategories($categoryId)
+    {
+        return ProductSubCategory::where('category_id', $categoryId)
+            ->orderBy('name')
+            ->get(['id', 'name']);
     }
 
     public function store(Request $request)
@@ -75,13 +86,16 @@ class ProductController extends Controller
             'gallery.*' => 'nullable|image',
         ]);
 
-        $product = Product::create($request->only([
-            'name',
-            'short_description',
-            'long_description',
-            'price',
-            'discounted_price'
-        ]));
+        $product = Product::create([
+            'category_id' => $request->category_id,
+            'sub_category_id' => $request->sub_category_id,
+            'name' => $request->name,
+            'short_description' => $request->short_description,
+            'long_description' => $request->long_description,
+            'price' => $request->price,
+            'stock' => $request->stock,
+            'discounted_price' => $request->discounted_price,
+        ]);
 
         // Handle files
         if ($request->hasFile('main_image')) {
@@ -102,41 +116,73 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        return view('admin.product-management.edit', compact('product'));
+         $categories = ProductCategory::orderBy('name')->get();
+
+        return view('admin.product-management.edit', compact('product', 'categories'));
     }
 
     public function update(Request $request, Product $product)
     {
         $request->validate([
+            'category_id' => 'required|exists:product_categories,id',
+            'sub_category_id' => 'nullable|exists:product_sub_categories,id',
+
             'name' => 'required|string|max:255',
             'short_description' => 'nullable|string|max:500',
             'long_description' => 'nullable|string',
             'price' => 'required|numeric',
             'discounted_price' => 'nullable|numeric',
+
             'main_image' => 'nullable|image',
             'gallery.*' => 'nullable|image',
         ]);
 
-        $product->update($request->only([
-            'name',
-            'short_description',
-            'long_description',
-            'price',
-            'discounted_price'
-        ]));
+        /**
+         * Extra safety:
+         * Ensure sub-category belongs to selected category
+         */
+        if ($request->sub_category_id) {
+            $valid = ProductSubCategory::where('id', $request->sub_category_id)
+                ->where('category_id', $request->category_id)
+                ->exists();
 
-        // Update main image
+            abort_if(!$valid, 422, 'Invalid sub-category for selected category.');
+        }
+
+        // Update product data
+        $product->update([
+            'category_id' => $request->category_id,
+            'sub_category_id' => $request->sub_category_id,
+
+            'name' => $request->name,
+            'short_description' => $request->short_description,
+            'long_description' => $request->long_description,
+            'price' => $request->price,
+            'discounted_price' => $request->discounted_price,
+        ]);
+
+        // Update main image (replace)
         if ($request->hasFile('main_image')) {
             $this->fileRepo->deleteAll($product, 'main_image');
-            $this->fileRepo->upload($request->file('main_image'), $product, 'main_image');
+            $this->fileRepo->upload(
+                $request->file('main_image'),
+                $product,
+                'main_image'
+            );
         }
 
-        // Add gallery images
+        // Append new gallery images
         if ($request->hasFile('gallery')) {
-            $this->fileRepo->uploadMultiple($request->file('gallery'), $product, 'gallery');
+            $this->fileRepo->uploadMultiple(
+                $request->file('gallery'),
+                $product,
+                'gallery'
+            );
         }
 
-        return redirect()->route('products.index')->with('success', 'Product updated successfully.');
+        return redirect()
+            ->route('admin.products.index')
+            ->with('success', 'Product updated successfully.');
     }
 
     public function destroy(Product $product)

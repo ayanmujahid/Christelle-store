@@ -74,6 +74,11 @@ Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('das
 
 Route::post('/admin/signup', [AdminController::class, 'registerSubmit'])->name('admin.register.submit');
 Route::post('/admin/login/submit',    [AdminController::class, 'loginSubmit'])->name('admin.login.submit');
+Route::get(
+    '/admin/categories/{category}/sub-categories',
+    [ProductController::class, 'subCategories']
+)->name('admin.categories.subcategories');
+
 
 
 Route::prefix('admin')
